@@ -30,7 +30,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 RUN ls
-RUN npm run build
+RUN cd react-app && npm run build:monolith
 #test autotrigger
 EXPOSE 8080
 CMD [ "node", "src/server.js" ]
