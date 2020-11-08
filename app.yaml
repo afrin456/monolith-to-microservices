@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: monolith
+  name: monolith
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: monolith
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: monolith
+    spec:
+      containers:
+        - image: >-
+            gcr.io/voltaic-cirrus-292815/github_afrin456_monolith-to-microservices
+          imagePullPolicy: IfNotPresent
+          name: monolith
+---
+apiVersion: v1
+kind: Service
+metadata:
+  finalizers:
+    - service.kubernetes.io/load-balancer-cleanup
+  labels:
+    app: monolith
+  name: monolith
+  namespace: default
+spec:
+  clusterIP: 10.19.255.74
+  externalTrafficPolicy: Cluster
+  ports:
+    - nodePort: 32686
+      port: 80
+      protocol: TCP
+      targetPort: 8080
+  selector:
+    app: monolith
+  sessionAffinity: None
+  type: LoadBalancer
