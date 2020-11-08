@@ -13,11 +13,11 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
+
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Typography from "@material-ui/core/Typography";
-
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
@@ -28,17 +28,19 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(3, 2)
   }
 }));
-
 export default function Home() {
   const classes = useStyles();
-
   return (
     <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Typography variant="h5">Welcome to the Fancy Store!</Typography>
+        <Typography variant="h5">
+          Fancy Fashion &amp; Style Online
+        </Typography>
         <br />
         <Typography variant="body1">
-          Take a look at our wide variety of products.
+          Tired of mainstream fashion ideas, popular trends and societal norms?
+          This line of lifestyle products will help you catch up with the Fancy trend and express your personal style.
+          Start shopping Fancy items now!
         </Typography>
       </Paper>
     </div>
