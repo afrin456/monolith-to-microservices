@@ -28,6 +28,6 @@ RUN npm install
 
 # Bundle app source
 COPY . .
-
+#test autotrigger
 EXPOSE 8080
 CMD [ "node", "src/server.js" ]
