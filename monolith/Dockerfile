@@ -30,7 +30,7 @@ RUN npm install
 # Bundle app source
 COPY . .
 RUN ls
-RUN npm run build
+#RUN npm run build
 #test autotrigger
 EXPOSE 8080
-CMD [ "node", "src/server.js" ]
+CMD [ "npm", "start" ]
