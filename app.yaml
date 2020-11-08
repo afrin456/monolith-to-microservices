@@ -2,14 +2,14 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: monolith
-  name: monolith
+    app: demo
+  name: demo
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: monolith
+      app: demo
   strategy:
     rollingUpdate:
       maxSurge: 25%
@@ -18,32 +18,53 @@ spec:
   template:
     metadata:
       labels:
-        app: monolith
+        app: demo
     spec:
       containers:
         - image: >-
-            gcr.io/kubernetespoc-295010/github.com/afrin456/monolith-to-microservices
+            gcr.io/voltaic-cirrus-292815/github.com/afrin456/monolith-to-microservices
           imagePullPolicy: IfNotPresent
-          name: monolith
+          name: monolith-to-microservices-1
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  labels:
+    app: demo
+  name: demo-hpa-yq9m
+  namespace: default
+spec:
+  maxReplicas: 5
+  metrics:
+    - resource:
+        name: cpu
+        targetAverageUtilization: 80
+      type: Resource
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: demo
 ---
 apiVersion: v1
 kind: Service
 metadata:
   finalizers:
     - service.kubernetes.io/load-balancer-cleanup
+  generateName: demo-
   labels:
-    app: monolith
-  name: monolith
+    app: demo
+  name: demo-hmn4m
   namespace: default
 spec:
-  clusterIP: 10.19.250.190
+  clusterIP: 10.3.248.240
   externalTrafficPolicy: Cluster
   ports:
-    - nodePort: 30120
+    - nodePort: 30334
       port: 80
       protocol: TCP
       targetPort: 8080
   selector:
-    app: monolith
+    app: demo
   sessionAffinity: None
   type: LoadBalancer
