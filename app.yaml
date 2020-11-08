@@ -22,7 +22,7 @@ spec:
     spec:
       containers:
         - image: >-
-            gcr.io/voltaic-cirrus-292815/github_afrin456_monolith-to-microservices
+            gcr.io/kubernetespoc-295010/github.com/afrin456/monolith-to-microservices
           imagePullPolicy: IfNotPresent
           name: monolith
 ---
@@ -36,10 +36,10 @@ metadata:
   name: monolith
   namespace: default
 spec:
-  clusterIP: 10.19.255.74
+  clusterIP: 10.19.250.190
   externalTrafficPolicy: Cluster
   ports:
-    - nodePort: 32686
+    - nodePort: 30120
       port: 80
       protocol: TCP
       targetPort: 8080
